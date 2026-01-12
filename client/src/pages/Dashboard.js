@@ -238,7 +238,7 @@ const Dashboard = () => {
 
             <div className="container">
 
-                {/* ORGANIZER VIEW */}
+                {/* view organizator*/}
                 {user.role === 'ORGANIZER' && (
                     <div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
@@ -440,7 +440,7 @@ const Dashboard = () => {
                     </div>
                 )}
 
-                {/* PARTICIPANT VIEW */}
+                {/* view participant  */}
                 {user.role === 'PARTICIPANT' && (
                     <div>
                         <h2>Participare Eveniment</h2>
@@ -478,7 +478,7 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        {/* HISTORY SECTION */}
+                        {/* istoric*/}
                         <div style={{ marginTop: '40px' }}>
                             <h3>Istoric Participari</h3>
                             {joinedEvents.length === 0 ? <p>Nu ai participat inca la niciun eveniment.</p> : (
