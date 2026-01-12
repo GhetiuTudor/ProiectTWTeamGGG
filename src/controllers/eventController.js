@@ -66,7 +66,6 @@ exports.createEventGroup = async (req, res) => {
 exports.deleteEvent = async (req, res) => {
   const { id } = req.params;
   try {
-    // Check if user owns it? (Ideally yes, skipping complex check for brevity but assuming verified by UI flow mostly)
     const event = await prisma.event.findUnique({ where: { id: parseInt(id) }, include: { group: true } });
     if (!event) return res.status(404).json({ error: 'Eveniment inexistent' });
     if (event.group.organizerId !== req.user.id) return res.status(403).json({ error: 'Nu aveti permisiunea.' });
@@ -89,19 +88,16 @@ exports.deleteGroup = async (req, res) => {
     if (!group) return res.status(404).json({ error: 'Grup inexistent' });
     if (group.organizerId !== req.user.id) return res.status(403).json({ error: 'Nu aveti permisiunea.' });
 
-    // Cascading delete manually if schema doesn't support it
+   
     await prisma.$transaction(async (tx) => {
-      // 1. Get all event IDs in group
+      
       const events = await tx.event.findMany({ where: { groupId: parseInt(groupId) }, select: { id: true } });
       const eventIds = events.map(e => e.id);
-
-      // 2. Delete all attendances for these events
+      
       await tx.attendance.deleteMany({ where: { eventId: { in: eventIds } } });
-
-      // 3. Delete events
+     
       await tx.event.deleteMany({ where: { groupId: parseInt(groupId) } });
 
-      // 4. Delete group
       await tx.eventGroup.delete({ where: { id: parseInt(groupId) } });
     });
 
