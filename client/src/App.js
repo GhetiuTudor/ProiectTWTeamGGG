@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 
-// Protected Route Wrapper
+
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
