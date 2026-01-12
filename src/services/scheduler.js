@@ -3,12 +3,10 @@ const prisma = require('../config/prisma');
 const initScheduler = () => {
     console.log('Scheduler started: Checking event status every minute.');
 
-    // Check every 60 seconds
     setInterval(async () => {
         const now = new Date();
 
         try {
-            // 1. OPEN events that should be OPEN (Start <= now < End) AND currently CLOSED
             const eventsToOpen = await prisma.event.updateMany({
                 where: {
                     status: 'CLOSE',
@@ -21,8 +19,7 @@ const initScheduler = () => {
             if (eventsToOpen.count > 0) {
                 console.log(`Scheduler: Opened ${eventsToOpen.count} events.`);
             }
-
-            // 2. CLOSE events that have ended (End <= now) AND currently OPEN
+            
             const eventsToClose = await prisma.event.updateMany({
                 where: {
                     status: 'OPEN',
