@@ -16,7 +16,7 @@ exports.createEventGroup = async (req, res) => {
   }
   const organizerId = req.user.id;
 
-  // Validation: Start Time < End Time
+  // validam daca start time < end time
   for (let event of events) {
     if (new Date(event.startTime) >= new Date(event.endTime)) {
       return res.status(400).json({ error: `Eroare: Evenimentul "${event.title}" are ora de start >= ora de sfarsit.` });
