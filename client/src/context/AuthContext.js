@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check local storage for token on mount
+        
         const token = localStorage.getItem('token');
         const role = localStorage.getItem('role');
         const name = localStorage.getItem('name');
@@ -32,14 +32,14 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
-    // Helper for authenticated fetch
+    
     const authFetch = async (url, options = {}) => {
         const headers = options.headers || {};
         if (user?.token) {
             headers['Authorization'] = `Bearer ${user.token}`;
         }
 
-        // Default to JSON content type if body is present and not FormData
+        
         if (options.body && !(options.body instanceof FormData) && !headers['Content-Type']) {
             headers['Content-Type'] = 'application/json';
         }
@@ -50,8 +50,7 @@ export const AuthProvider = ({ children }) => {
         });
 
         if (response.status === 401 || response.status === 403) {
-            // Token expired or invalid
-            // logout(); // Optional: auto-logout
+            
         }
 
         return response;
