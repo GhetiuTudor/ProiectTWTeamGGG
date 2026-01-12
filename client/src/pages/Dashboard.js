@@ -7,7 +7,7 @@ import API_URL from '../config';
 const Dashboard = () => {
     const { user, logout, authFetch } = useAuth();
 
-    // Organizer State
+    //
     const [myGroups, setMyGroups] = useState([]);
     const [newGroup, setNewGroup] = useState({ name: '', description: '' });
     const [newEvents, setNewEvents] = useState([{ title: '', startTime: '', endTime: '' }]);
@@ -15,7 +15,7 @@ const Dashboard = () => {
     const [selectedEventQR, setSelectedEventQR] = useState(null);
     const [selectedEventAttendance, setSelectedEventAttendance] = useState(null);
 
-    // Participant State
+    // 
     const [accessCode, setAccessCode] = useState('');
     const [isScanning, setIsScanning] = useState(false);
     const [joinMessage, setJoinMessage] = useState({ type: '', text: '' });
@@ -57,7 +57,7 @@ const Dashboard = () => {
         logout();
     };
 
-    // --- ORGANIZER LOGIC ---
+    // logica pt organizer
 
     const handleAddEventField = () => {
         setNewEvents([...newEvents, { title: '', startTime: '', endTime: '' }]);
@@ -72,7 +72,7 @@ const Dashboard = () => {
     const handleCreateGroup = async (e) => {
         e.preventDefault();
         try {
-            // Client-side Validation Checks
+            
             for (let evt of newEvents) {
                 if (new Date(evt.startTime) >= new Date(evt.endTime)) {
                     alert(`Eroare: Evenimentul "${evt.title}" are Ora Start >= Ora Sfarsit. Te rog corecteaza.`);
@@ -101,7 +101,7 @@ const Dashboard = () => {
             setShowCreateForm(false);
             setNewGroup({ name: '', description: '' });
             setNewEvents([{ title: '', startTime: '', endTime: '' }]);
-            fetchMyEvents(); // Refresh list
+            fetchMyEvents(); // lista refresh
         } catch (err) {
             alert('Eroare: ' + err.message);
         }
@@ -196,7 +196,7 @@ const Dashboard = () => {
     };
 
 
-    // --- PARTICIPANT LOGIC ---
+    // logic de participant
 
     const handleJoin = async (code) => {
         try {
@@ -212,7 +212,7 @@ const Dashboard = () => {
 
             setJoinMessage({ type: 'success', text: `Succes! Te-ai inscris la eveniment.` });
             setIsScanning(false);
-            fetchJoinedEvents(); // Update history
+            fetchJoinedEvents(); 
         } catch (err) {
             setJoinMessage({ type: 'error', text: err.message });
         }
