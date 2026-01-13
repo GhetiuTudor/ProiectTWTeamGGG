@@ -1,6 +1,8 @@
 # ProiectTWTeamGGG
 Attendance monitoring web app
 
+https://proiect-tw-team-ggg.vercel.app/login
+
 1. Obiectiv general
 
 Obiectivul proiectului este realizarea unei aplicatii web care permite monitorizarea prezentei participantilor la evenimente. Platforma trebuie sa ofere un backend RESTful in Node.js si Express, care utilizeaza o baza de date relationala prin intermediul unui ORM, si un frontend Single Page Application creat cu React.js. 
